@@ -1,0 +1,53 @@
+# Phase 1 simulation parameters (SPEC Section 5).
+# Every value except g is an assumption. Replace with vendor data or
+# measurements as they become available. Keys ending in _deg hold degrees;
+# the loader converts them to radians and drops the suffix.
+
+plant:
+  g: 9.81                # gravity, m/s^2
+  tau_psi: 0.05          # yaw-rate time constant, s (sweep 0.02 to 0.15)
+  tau_theta: 0.05        # angle-loop time constant, s (sweep 0.02 to 0.15)
+  k_v: 0.5               # linear drag per unit mass, 1/s (sweep 0.2 to 1.5)
+  theta_max_deg: 15.0    # max pitch command, deg (placeholder)
+  omega_max_deg: 90.0    # max yaw-rate command, deg/s (placeholder)
+  dt: 0.001              # RK4 physics step, s
+
+camera:
+  hfov_deg: 120.0        # horizontal field of view, deg
+  width: 640             # image width, px
+  torso_length: 0.50     # shoulder-to-hip midpoint distance, m (sweep 0.40 to 0.60)
+  sigma_d: 1.5           # separation pixel noise, px (sweep 0.5 to 4)
+  sigma_u: 2.0           # horizontal pixel noise, px (sweep 0.5 to 5)
+  d_min: 10.0            # minimum detectable separation, px
+  f_cam: 30.0            # camera frame rate, Hz (sweep 15 to 30)
+  t_vision: 0.100        # vision latency, s (sweep 0.050 to 0.300)
+  p_drop: 0.0            # random dropout probability per frame (sweep 0 to 0.1)
+
+link:
+  f_link: 50.0           # command link update rate, Hz
+  t_link: 0.020          # command link latency, s (sweep 0 to 0.050)
+
+control:
+  r_ref: 3.0             # range setpoint, m (placeholder)
+  loss_timeout: 0.5      # time without a measurement before commands go to zero, s
+
+estimator:
+  q_a: 1.0               # white-acceleration spectral density, m^2/s^3 (tunable)
+  v0_std: 1.0            # initial range-rate standard deviation, m/s
+  predict_latency: false # predict the estimate forward by t_vision
+
+scenarios:
+  duration: 20.0                # s
+  s1_heading_offset_deg: 20.0   # initial heading error, deg
+  s2_range_offset: 1.0          # initial range offset from r_ref, m
+  s3_speed: 1.4                 # walk-away speed, m/s
+  s3_walk_time: 8.0             # s
+  s4_speed: 1.0                 # walk-across speed, m/s
+  s4_walk_time: 8.0             # s
+  s5_start_offset: 2.0          # start distance beyond r_ref, m
+  s5_speed: 1.0                 # walk-toward speed, m/s
+  s5_walk_time: 4.0             # s
+
+monte_carlo:
+  n_seeds: 20
+  base_seed: 0

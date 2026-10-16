@@ -1,0 +1,9 @@
+# Placeholder gains, hand-picked for roughly 45 deg phase margin at the
+# nominal effective delay. scripts/tune_gains.py overwrites this file.
+yaw:
+  kp: 3.0     # (rad/s) per rad of bearing
+  ki: 0.5     # (rad/s) per (rad*s) of integrated bearing
+range:
+  kp: 0.10    # rad of pitch per m of range error
+  kd: 0.15    # rad of pitch per (m/s) of range rate
+  ki: 0.0     # rad of pitch per (m*s) of integrated range error
